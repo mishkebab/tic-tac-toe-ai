@@ -27,6 +27,15 @@ require "byebug"
 
 
   def losing_node?(evaluator)
+    opponent = evaluator == :o ? :x : :o
+
+    @board.winner != evaluator
+    
+    if @board.turn == evaluator
+      return self.children.all? {|child| child.losing_node?(evaluator)}
+    else
+      return self.children.any? {|child| child.losing_node?(evaluator)}
+    end
   end
 
   def winning_node?(evaluator)
